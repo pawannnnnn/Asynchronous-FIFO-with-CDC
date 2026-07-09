@@ -1,0 +1,17 @@
+# Simulation outputs and binaries
+tb/*_tb
+*.vcd
+*.log
+
+# Formal verification outputs
+formal/async_fifo/
+formal/*/
+
+# Physical design runs and intermediate sweep configs
+pnr/runs/
+pnr/sweep_configs/
+
+# Temporary and editor files
+*.swp
+*~
+.DS_Store

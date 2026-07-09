@@ -1,0 +1,6 @@
+label,clock_period,util,density,status,wns_ns,area_um2,power_W
+baseline,10,40,45,PASS,,2202.112,0.00165
+faster_clk,8,40,45,PASS,,2202.112,0.00165
+high_util,10,60,65,PASS,,2202.112,0.00162
+high_util_fast,8,60,65,PASS,,2202.112,0.00162
+relaxed_clk,15,50,55,PASS,,2202.112,0.00162

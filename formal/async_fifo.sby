@@ -1,0 +1,23 @@
+[options]
+mode prove
+depth 50
+
+[engines]
+smtbmc z3
+
+[script]
+read -formal bin2gray.v
+read -formal sync_2ff.v
+read -formal wptr_full.v
+read -formal rptr_empty.v
+read -formal dualport_ram.v
+read -formal async_fifo_formal.v
+prep -top async_fifo_formal
+
+[files]
+rtl/bin2gray.v
+rtl/sync_2ff.v
+rtl/wptr_full.v
+rtl/rptr_empty.v
+rtl/dualport_ram.v
+formal/async_fifo_formal.v

@@ -1,0 +1,41 @@
+# config.yaml — LibreLane config for async_fifo targeting SKY130B
+#
+# Run from inside the nix-shell:
+#   python3 -m librelane --pdk-root $HOME/.ciel ./pnr/config.yaml
+
+DESIGN_NAME: async_fifo
+
+VERILOG_FILES:
+  - dir::../rtl/bin2gray.v
+  - dir::../rtl/sync_2ff.v
+  - dir::../rtl/wptr_full.v
+  - dir::../rtl/rptr_empty.v
+  - dir::../rtl/dualport_ram.v
+  - dir::../rtl/async_fifo.v
+
+
+# ── Clocks ────────────────────────────────────────────────────────────
+# We declare wr_clk as the primary clock here. rd_clk is handled via
+# the custom SDC below — LibreLane passes that file straight to
+# OpenSTA so we can express the full dual-clock environment there.
+CLOCK_PORT: wr_clk
+CLOCK_PERIOD: 10   # 100 MHz starting point; sweep this later
+
+# ── Custom SDC (dual-clock + CDC false paths) ─────────────────────────
+# This is the critical file that makes this design different from every
+# other SKY130 portfolio project. It defines both clocks AND tells the
+# timing engine not to time across the synchronizer boundary.
+EXTRA_LEFS: []
+PNR_SDC_FILE: dir::async_fifo_cdc.sdc
+
+# ── Floorplan ─────────────────────────────────────────────────────────
+# Start conservative (low density), then sweep higher in the PPA study.
+FP_SIZING: relative
+FP_CORE_UTIL: 40
+FP_ASPECT_RATIO: 1
+
+# ── Placement ─────────────────────────────────────────────────────────
+PL_TARGET_DENSITY_PCT: 45
+
+# ── Routing ───────────────────────────────────────────────────────────
+DRT_THREADS: 4
