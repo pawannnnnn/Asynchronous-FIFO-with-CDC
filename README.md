@@ -78,7 +78,12 @@ In an Asynchronous FIFO, `empty` and `full` states both occur when read and writ
 - To differentiate, pointers are extended by **1 extra MSB (wrap bit)** (e.g., pointers are 4 bits wide for an 8-depth FIFO).
 - **Empty Condition:** The write pointer and synchronized read pointer match exactly (including the wrap bit).
 - **Full Condition (Cummings' MSB-Inversion Trick):** The write pointer has wrapped around the memory boundary once more than the read pointer. In Gray-code, this condition corresponds to the two most-significant bits of the pointers being inverted (bitwise NOT), and the lower remaining bits matching:
-  $$\text{full} = (\text{wr\_ptr\_gray\_next} == \{\sim\text{rd\_ptr\_gray\_sync}[N:N-1], \text{rd\_ptr\_gray\_sync}[N-2:0]\})$$
+  $$
+\texttt{full} =
+(\texttt{wr\_ptr\_gray\_next} ==
+\{\sim\texttt{rd\_ptr\_gray\_sync}[N:N-1],\,
+\texttt{rd\_ptr\_gray\_sync}[N-2:0]\})
+$$
 
 ### 4. Physical Design CDC Constraints (SDC False Paths)
 Standard Place & Route (PnR) tools will fail timing or ruin density targets if they attempt to optimize asynchronous CDC paths. Since $CLK_{TX}$ and $CLK_{RX}$ have no phase relationship, setup/hold constraints are physically impossible to meet.
