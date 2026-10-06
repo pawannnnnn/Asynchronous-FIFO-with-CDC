@@ -38,18 +38,18 @@ The FIFO employs two separate clock domains with synchronizers communicating gra
 
 ```mermaid
 graph TD
-    subgraph Write Domain (wr_clk)
+    subgraph WR["Write Domain (wr_clk)"]
         WR_EN[wr_en] --> WPTR[wptr_full.v]
         WR_DATA[wr_data] --> RAM[dualport_ram.v]
         WPTR -->|wr_addr| RAM
-        WPTR -->|wr_ptr_gray| SYNC_WR2RD[sync_2ff wr2rd]
+        WPTR -->|wr_ptr_gray| SYNC_WR2RD["sync_2ff wr2rd"]
         WPTR -->|full| FULL[full flag]
     end
 
-    subgraph Read Domain (rd_clk)
+    subgraph RD["Read Domain (rd_clk)"]
         RD_EN[rd_en] --> RPTR[rptr_empty.v]
         RPTR -->|rd_addr| RAM
-        RPTR -->|rd_ptr_gray| SYNC_RD2WR[sync_2ff rd2wr]
+        RPTR -->|rd_ptr_gray| SYNC_RD2WR["sync_2ff rd2wr"]
         RPTR -->|empty| EMPTY[empty flag]
         RAM -->|rd_data| RD_DATA[rd_data]
     end
