@@ -79,10 +79,7 @@ In an Asynchronous FIFO, `empty` and `full` states both occur when read and writ
 - **Empty Condition:** The write pointer and synchronized read pointer match exactly (including the wrap bit).
 - **Full Condition (Cummings' MSB-Inversion Trick):** The write pointer has wrapped around the memory boundary once more than the read pointer. In Gray-code, this condition corresponds to the two most-significant bits of the pointers being inverted (bitwise NOT), and the lower remaining bits matching:
   $$
-\texttt{full} =
-(\texttt{wr\_ptr\_gray\_next} ==
-\{\sim\texttt{rd\_ptr\_gray\_sync}[N:N-1],\,
-\texttt{rd\_ptr\_gray\_sync}[N-2:0]\})
+\text{full} = \left(\text{wr\_ptr\_gray\_next} = \{\sim\text{rd\_ptr\_gray\_sync}[N:N-1],\ \text{rd\_ptr\_gray\_sync}[N-2:0]\}\right)
 $$
 
 ### 4. Physical Design CDC Constraints (SDC False Paths)
