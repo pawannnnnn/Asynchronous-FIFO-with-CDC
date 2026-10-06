@@ -82,6 +82,10 @@ In an Asynchronous FIFO, `empty` and `full` states both occur when read and writ
 \text{full} = \left(\text{wr\_ptr\_gray\_next} = \{\sim\text{rd\_ptr\_gray\_sync}[N:N-1],\ \text{rd\_ptr\_gray\_sync}[N-2:0]\}\right)
 $$
 
+$$
+\text{full} = \left(\text{wr\_ptr\_gray\_next} = \{\sim\text{rd\_ptr\_gray\_sync}[N:N-1],\ \text{rd\_ptr\_gray\_sync}[N-2:0]\}\right)
+$$
+
 ### 4. Physical Design CDC Constraints (SDC False Paths)
 Standard Place & Route (PnR) tools will fail timing or ruin density targets if they attempt to optimize asynchronous CDC paths. Since $CLK_{TX}$ and $CLK_{RX}$ have no phase relationship, setup/hold constraints are physically impossible to meet.
 - The timing constraints SDC file (`pnr/async_fifo_cdc.sdc`) declares the clocks as asynchronous:
